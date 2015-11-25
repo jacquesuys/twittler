@@ -425,3 +425,22 @@ td,
 th {
   padding: 0;
 }
+
+/* Twittler styles */
+a {
+	color: rgb(70, 183, 231);
+}
+
+p {
+	text-transform: 
+}
+
+.handle,
+.hashtag,
+.timestamp {
+	color: rgb(70, 183, 231);
+}
+
+.handle a {
+	text-decoration: none;
+}
