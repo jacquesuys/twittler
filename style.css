@@ -456,13 +456,50 @@ p {
 	position: relative;
 	max-width: 800px;
 	margin: 0 auto;
-	/* Spare padding */
-	padding-bottom: 57px;
 }
 
 .tweets {
 	border: solid 1px rgb(225, 232, 237);
+	margin-top: -1px;
 }
+
+.twittler,
+.tweets {
+	float: left;
+	width: 100%;
+}
+
+.twittler,
+.twittler input {
+	border: solid 1px rgb(208, 237, 249);
+}
+
+.twittler {
+	background-color: rgb(236, 247, 252);
+	padding: 10px;
+}
+
+.twittler input,
+.twittler button {
+	padding: 5px;
+	line-height: 24px;
+}
+
+.twittler input {
+	border-radius: 3px 0 0 3px;
+	width: 75%;
+	float: left;
+}
+
+.twittler button {
+	border-radius: 0 3px 3px 0;
+	width: 25%;
+	float: right;
+	color: white;
+	background-color: rgba(70, 183, 231, 0.75);
+	border: solid 1px rgb(70, 183, 231);
+}
+
 
 .tweet {
 	border-bottom-color: rgb(225, 232, 237);
@@ -509,38 +546,4 @@ p {
 .timestamp {
 	font-size: 13px; 
 	text-decoration: none;
-}
-
-.twittler,
-.twittler input {
-	border: solid 1px rgb(208, 237, 249);
-}
-
-.twittler {
-	background-color: rgb(236, 247, 252);
-	position: absolute;
-	width: 100%;
-	bottom: 0;
-	padding: 10px;
-}
-
-.twittler input,
-.twittler button {
-	padding: 5px;
-	line-height: 24px;
-}
-
-.twittler input {
-	border-radius: 3px 0 0 3px;
-	width: 75%;
-	float: left;
-}
-
-.twittler button {
-	border-radius: 0 3px 3px 0;
-	width: 25%;
-	float: right;
-	color: white;
-	background-color: rgba(70, 183, 231, 0.75);
-	border: solid 1px rgb(70, 183, 231);
 }
