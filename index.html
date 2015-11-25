@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Twittler - The Twitter Clone</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <script src="moment.min.js" defer></script>
   </head>
   <body>
-    <div class="tweets">
-      <!-- Tweets go here -->
+
+    <div class="container">
+      <div class="tweets">
+        <!-- Tweets go here -->
+      </div>
+      <div class="twittler">
+        <input type="text" placeholder="What's cracking?">
+        <button>Submit</button>
+      </div>
     </div>
+
     <script>
 
       $(document).ready(function() {
+        // vars
         var $tweets = $('.tweets');
+
+        // undefineds
         var $tweet, $html, $moment, $hashtags, tweet;
 
         var hashTagger = function(match) {
@@ -24,7 +36,7 @@
           $tweets.html('');
 
           var index = streams.home.length - 1;
-          while(index >= 0){
+          while(index >= 0) {
             // vars
             tweet = streams.home[index];
             $moment = moment(tweet.created_at).fromNow();
@@ -37,9 +49,9 @@
             // build html
             $html += '<a href="#" class="user">';
             $html += '<strong>' + tweet.user + '</strong> ';
-            $html += '<span class="handle">@' + tweet.user + '</span>';
+            $html += '<span class="handle">@' + tweet.user + '</span> . ';
             $html += '</a>';
-            $html += ' . <span class="timestamp">' + $moment + '</span>';
+            $html += '<span class="timestamp">' + $moment + '</span>';
             $html += '<p>' + $text + '</p>';
 
             // append html
@@ -51,6 +63,11 @@
         };
 
         buildTweets();
+
+        $('.twittler button').on('click', function(e) {
+          var $val = $('.twittler input').val();
+          console.log($val);
+        });
 
       });
 
