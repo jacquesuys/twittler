@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
-    <script src="moment.min.js"></script>
+    <script src="moment.min.js" defer></script>
   </head>
   <body>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
-        var $tweet, $html, tweet;
+        var $tweet, $html, $moment, tweet;
 
         $body.html('');
 
@@ -18,12 +19,14 @@
         while(index >= 0){
 
           tweet = streams.home[index];
+          $moment = moment(tweet.created_at).fromNow();
+
           $html = '';
           $tweet = $('<div></div>');
 
           $html += '<strong>' + tweet.user + '</strong> ';
-          $html += '<a href="#">@' + tweet.user + '</a>';
-          $html += ' . <span>' + moment(tweet.created_at).fromNow() + '</span>';
+          $html += '<span class="handle">@<a href="#">' + tweet.user + '</a></span>';
+          $html += ' . <span class="timestamp">' + $moment + '</span>';
           $html += '<p>' + tweet.message + '</p>';
 
           $tweet.html($html);
