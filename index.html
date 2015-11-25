@@ -7,41 +7,50 @@
     <script src="moment.min.js" defer></script>
   </head>
   <body>
+    <div class="tweets">
+      <!-- Tweets go here -->
+    </div>
     <script>
 
       $(document).ready(function() {
-        var $body = $('body');
+        var $tweets = $('.tweets');
         var $tweet, $html, $moment, $hashtags, tweet;
 
         var hashTagger = function(match) {
           return '<span class="hashtag">' + match + '</span>';
         };
 
-        $body.html('');
+        var buildTweets = function() {
+          $tweets.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            // vars
+            tweet = streams.home[index];
+            $moment = moment(tweet.created_at).fromNow();
+            $text = tweet.message;
+            $text = $text.charAt(0).toUpperCase() + $text.substring(1);
+            $text = $text.replace(/#(.+?)(?=[\s.,:,]|$)/, hashTagger);
+            $html = '';
+            $tweet = $('<div class="tweet"></div>');
 
-          tweet = streams.home[index];
-          $moment = moment(tweet.created_at).fromNow();
-          $text = tweet.message;
-          $text = $text.replace(/#(.+?)(?=[\s.,:,]|$)/, hashTagger);
+            // build html
+            $html += '<a href="#" class="user">';
+            $html += '<strong>' + tweet.user + '</strong> ';
+            $html += '<span class="handle">@' + tweet.user + '</span>';
+            $html += '</a>';
+            $html += ' . <span class="timestamp">' + $moment + '</span>';
+            $html += '<p>' + $text + '</p>';
 
-          // console.log($hashtags);
+            // append html
+            $tweet.html($html);
+            $tweet.appendTo($tweets);
 
-          $html = '';
-          $tweet = $('<div></div>');
+            index -= 1;
+          }
+        };
 
-          $html += '<strong>' + tweet.user + '</strong> ';
-          $html += '<span class="handle">@<a href="#">' + tweet.user + '</a></span>';
-          $html += ' . <span class="timestamp">' + $moment + '</span>';
-          $html += '<p>' + $text + '</p>';
-
-          $tweet.html($html);
-          $tweet.appendTo($body);
-          index -= 1;
-
-        }
+        buildTweets();
 
       });
 
