@@ -26,19 +26,21 @@
         var $tweets = $('.tweets');
 
         // undefineds
-        var $tweet, $html, $moment, $hashtags, tweet;
+        var $streams, $tweet, $html, $moment, $hashtags, tweet;
 
         var hashTagger = function(match) {
           return '<span class="hashtag">' + match + '</span>';
         };
 
-        var buildTweets = function() {
+        var buildTweets = function(streams) {
           $tweets.html('');
 
-          var index = streams.home.length - 1;
+          $streams = streams || streams.home;
+
+          var index = $streams.length - 1;
           while(index >= 0) {
             // vars
-            tweet = streams.home[index];
+            tweet = $streams[index];
             $moment = moment(tweet.created_at).fromNow();
             $text = tweet.message;
             $text = $text.charAt(0).toUpperCase() + $text.substring(1);
@@ -47,7 +49,7 @@
             $tweet = $('<div class="tweet"></div>');
 
             // build html
-            $html += '<a href="#" class="user">';
+            $html += '<a href="#' + tweet.user + '" class="user" data-user="' + tweet.user + '">';
             $html += '<strong>' + tweet.user + '</strong> ';
             $html += '<span class="handle">@' + tweet.user + '</span> . ';
             $html += '</a>';
@@ -62,11 +64,16 @@
           }
         };
 
-        buildTweets();
+        buildTweets(streams.home);
 
         $('.twittler button').on('click', function(e) {
           var $val = $('.twittler input').val();
           console.log($val);
+        });
+
+        $('.user').on('click', function(e) {
+          var $user = $(this).data('user');
+          buildTweets(streams.users[$user]);
         });
 
       });
