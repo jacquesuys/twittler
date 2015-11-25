@@ -9,9 +9,13 @@
   <body>
     <script>
 
-      $(document).ready(function(){
+      $(document).ready(function() {
         var $body = $('body');
-        var $tweet, $html, $moment, tweet;
+        var $tweet, $html, $moment, $hashtags, tweet;
+
+        var hashTagger = function(match) {
+          return '<span class="hashtag">' + match + '</span>';
+        };
 
         $body.html('');
 
@@ -20,6 +24,10 @@
 
           tweet = streams.home[index];
           $moment = moment(tweet.created_at).fromNow();
+          $text = tweet.message;
+          $text = $text.replace(/#(.+?)(?=[\s.,:,]|$)/, hashTagger);
+
+          // console.log($hashtags);
 
           $html = '';
           $tweet = $('<div></div>');
@@ -27,7 +35,7 @@
           $html += '<strong>' + tweet.user + '</strong> ';
           $html += '<span class="handle">@<a href="#">' + tweet.user + '</a></span>';
           $html += ' . <span class="timestamp">' + $moment + '</span>';
-          $html += '<p>' + tweet.message + '</p>';
+          $html += '<p>' + $text + '</p>';
 
           $tweet.html($html);
           $tweet.appendTo($body);
