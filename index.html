@@ -10,13 +10,16 @@
   <body>
 
     <div class="container">
-      <div class="tweets">
-        <!-- Tweets go here -->
-      </div>
+
       <div class="twittler">
         <input type="text" placeholder="What's cracking?">
         <button>Submit</button>
       </div>
+
+      <div class="tweets">
+        <!-- Tweets go here -->
+      </div>
+      
     </div>
 
     <script>
@@ -49,7 +52,7 @@
             $tweet = $('<div class="tweet"></div>');
 
             // build html
-            $html += '<a href="#' + tweet.user + '" class="user" data-user="' + tweet.user + '">';
+            $html += '<a href="#" class="user" data-user="' + tweet.user + '">';
             $html += '<strong>' + tweet.user + '</strong> ';
             $html += '<span class="handle">@' + tweet.user + '</span> . ';
             $html += '</a>';
@@ -66,13 +69,16 @@
 
         buildTweets(streams.home);
 
+        var $message;
         $('.twittler button').on('click', function(e) {
-          var $val = $('.twittler input').val();
-          console.log($val);
+          $message = $('.twittler input').val();
+          writeTweet($message);
         });
 
+        var $user;
         $('.user').on('click', function(e) {
-          var $user = $(this).data('user');
+          e.preventDefault();
+          $user = $(this).data('user');
           buildTweets(streams.users[$user]);
         });
 
